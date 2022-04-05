@@ -1,7 +1,6 @@
 # INST490-Capstone-Project [![](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-TODO
-
+Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu
 
 ![Total Energy Consumption Estimates](https://github.com/jkim1238/INST490-Capstone-Project/blob/main/Total%20Energy%20Consumption%20Estimates.png?raw=true)
 
@@ -55,7 +54,7 @@ TODO
 
 ## Bibliography
 
-  - TODO
+  - use_tot_sector.xlsx
   - TODO
 
 ## Authors
