@@ -1,14 +1,9 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import streamlit_analytics as sa
-
 
 
 def main():
-    # Add analytics.
-    sa.start_tracking()
-
     # Set page config.
     st.set_page_config(
         page_title='INST 490 Capstone Project',
@@ -57,9 +52,6 @@ def main():
 
     # Print DataFrame.
     st.write(df)
-
-    # Stop analytics.
-    sa.stop_tracking(save_to_json='analytics.json')
 
 
 if __name__ == '__main__':
