@@ -4,6 +4,21 @@ import pandas as pd
 
 
 def main():
+    # Set page config.
+    st.set_page_config(
+        page_title='INST 490 Capstone Project',
+        page_icon='🗺️'
+    )
+
+    # Print title.
+    st.title('INST 490 Capstone Project')
+
+    # Print team member names.
+    st.write('Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu')
+
+    # Set header.
+    st.header('Total Energy Consumption Estimates by End-Use Sector')
+
     # Read total energy consumption data.
     df = pd.read_excel(io=r'use_tot_sector.xlsx',
                        sheet_name='Total Consumption',
@@ -18,9 +33,6 @@ def main():
     df.drop(index=df.index[-1],
             axis=0,
             inplace=True)
-
-    # Set title.
-    st.title('Total Energy Consumption Estimates by End-Use Sector')
 
     # Year slider.
     year = st.slider(label='Select Year:',
