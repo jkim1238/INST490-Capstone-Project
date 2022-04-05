@@ -44,7 +44,8 @@ def main():
                         locations='State',
                         locationmode='USA-states',
                         color=year,
-                        scope='usa')
+                        scope='usa',
+                        title='Total Energy Consumption Estimates')
 
     # Print choropleth map figure to page.
     st.write(fig)
