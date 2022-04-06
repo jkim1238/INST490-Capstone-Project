@@ -5,9 +5,9 @@ import pandas as pd
 
 def main():
     # Set page config.
-    st.set_page_config(
-        page_title='INST 490 Capstone Project',
-        page_icon='🗺️')
+    st.set_page_config(page_title='INST 490 Capstone Project',
+                       page_icon='💡',
+                       initial_sidebar_state='expanded')
 
     # Print title.
     st.title('INST 490 Capstone Project')
