@@ -7,8 +7,7 @@ def main():
     # Set page config.
     st.set_page_config(
         page_title='INST 490 Capstone Project',
-        page_icon='🗺️'
-    )
+        page_icon='🗺️')
 
     # Print title.
     st.title('INST 490 Capstone Project')
@@ -45,10 +44,14 @@ def main():
                         locationmode='USA-states',
                         color=year,
                         scope='usa',
-                        title='Total Energy Consumption Estimates')
+                        title=f'Total Energy Consumption Estimates U.S. {year}',
+                        labels={f'{year}': 'Billion Btu'})
 
     # Print choropleth map figure to page.
     st.write(fig)
+
+    # Set header for raw data.
+    st.header('Raw Data')
 
     # Print DataFrame.
     st.write(df)
