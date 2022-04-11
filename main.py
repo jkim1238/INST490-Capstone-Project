@@ -62,14 +62,14 @@ def main():
     st.header(body='Raw Data')
 
     # Print DataFrame.
-    file_container = st.expander("Display Raw Data .xlsx")
+    file_container = st.expander('Display Raw Data .xlsx')
     file_container.write(df)
 
     # Save raw data button to save DataFrame as CSV file.
-    st.download_button(label="Press to Download Raw Data",
+    st.download_button(label='Press to Download Raw Data',
                        data=df.to_csv(),
-                       file_name="file.csv",
-                       mime="text/csv",
+                       file_name='file.csv',
+                       mime='text/csv',
                        key='download-csv')
 
 
