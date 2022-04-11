@@ -40,7 +40,6 @@ def main():
                      '  - [Line Plot](#line-plot)\n'
                      '- [Machine Learning](#machine-learning)\n'
                      '  - [Scatter Plot with Linear Regression Model](#linear-regression-model)\n'
-                     '  - [Model Parameters](#model-parameters)\n'
                      '  - [Equation](#equation)\n'
                      '  - [Prediction](#prediction)', unsafe_allow_html=True)
 
@@ -166,15 +165,8 @@ def main():
         # Print scatter plot figure to page.
         st.write(fig)
 
-        # Subheader for results.
-        st.subheader(body='Model Parameters')
-
         # Get OLS results.
         results = px.get_trendline_results(fig)
-        summary = results.iloc[0]['px_fit_results'].summary()
-
-        # Print results.
-        st.write(summary)
 
         # Get coefficients.
         b = results.iloc[0]['px_fit_results'].params[0]
