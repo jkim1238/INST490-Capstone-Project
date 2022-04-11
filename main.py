@@ -184,6 +184,7 @@ def main():
         st.subheader(body='Equation')
 
         # Print equation.
+        st.write(state, ' ', sector)
         st.write('y = ', m, 'x + ', b)
 
         # Print subheader for prediction.
