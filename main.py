@@ -13,7 +13,7 @@ def main():
     st.sidebar.title(body='Options')
 
     # Sidebar select box to choose visualization.
-    visualization = st.sidebar.selectbox(label='Select visualization:',
+    visualization = st.sidebar.selectbox(label='Select a dataset:',
                                          options=('Energy Consumption', 'Energy Usage Price'))
 
     # Sidebar select box to choose sector.
@@ -35,7 +35,14 @@ def main():
     # Table of contents.
     st.header(body='Table of Contents')
     st.markdown(body='- [Data Visualization](#data-visualization)\n'
-                     '- [Raw Data](#raw-data)', unsafe_allow_html=True)
+                     '  - [Raw Data](#raw-data)\n'
+                     '  - [Choropleth Map](#choropleth-map)\n'
+                     '  - [Line Plot](#line-plot)\n'
+                     '- [Machine Learning](#machine-learning)\n'
+                     '  - [Scatter Plot with Linear Regression Model](#linear-regression-model)\n'
+                     '  - [Model Parameters](#model-parameters)\n'
+                     '  - [Equation](#equation)\n'
+                     '  - [Prediction](#prediction)', unsafe_allow_html=True)
 
     # Header for Data Visualization.
     st.header(body='Data Visualization')
@@ -52,6 +59,20 @@ def main():
         df = pd.read_excel(io=r'use_tot_sector.xlsx',
                            sheet_name=sector,
                            header=2)
+
+        # Set header for raw data.
+        st.subheader(body='Raw Data')
+
+        # Print DataFrame.
+        file_container = st.expander(label='Display Total Energy Consumption Data .xlsx')
+        file_container.write(df)
+
+        # Save raw data button to save DataFrame as CSV file.
+        st.download_button(label='Press to Download Raw Data',
+                           data=df.to_csv(),
+                           file_name=f'{sector}.csv',
+                           mime='text/csv',
+                           key='download-csv')
 
         # Drop first row.
         df.drop(index=df.index[0],
@@ -74,6 +95,9 @@ def main():
                             scope='usa',
                             title=f'Total Energy Consumption Estimates U.S. {sector} {year}',
                             labels={f'{year}': 'Billion Btu'})
+
+        # Subheader for choropleth map.
+        st.subheader('Choropleth Map')
 
         # Print choropleth map figure to page.
         st.write(fig)
@@ -107,22 +131,79 @@ def main():
                       title=f'Total Energy Consumption Estimates DMV {sector} 1960-2019',
                       labels={'value': 'Energy Consumption (Billion Btu)'})
 
+        # Subheader for line plot.
+        st.subheader('Line Plot', anchor='line-plot')
+
+        # Print line plot figure to page.
+        st.write(fig)
+
+        # Header for machine learning.
+        st.header(body='Machine Learning', anchor='machine-learning')
+
+        # Subheader for linear regression model.
+        st.subheader(body='Scatter Plot with Linear Regression Model', anchor='linear-regression-model')
+
+        # Select box to choose state.
+        state = st.selectbox(label='Select a state:',
+                             options=('US', 'DC', 'MD', 'VA'))
+
+        # Drop other states.
+        scatter_df = scatter_df[scatter_df['State'] == state]
+
+        # Make years a column for plotting.
+        scatter_df = pd.melt(scatter_df, id_vars=['State'], var_name='Year')
+
+        # Create scatter plot figure.
+        fig = px.scatter(data_frame=scatter_df,
+                         x='Year',
+                         y='value',
+                         color='State',
+                         title=f'Total Energy Consumption Estimates {state} {sector} 1960-2019',
+                         labels={'value': 'Energy Consumption (Billion Btu)'},
+                         trendline='ols',
+                         trendline_color_override='red')
+
         # Print scatter plot figure to page.
         st.write(fig)
 
-        # Set header for raw data.
-        st.subheader(body='Raw Data')
+        # Subheader for results.
+        st.subheader(body='Model Parameters')
 
-        # Print DataFrame.
-        file_container = st.expander(label='Display Total Energy Consumption Data .xlsx')
-        file_container.write(df)
+        # Get OLS results.
+        results = px.get_trendline_results(fig)
+        summary = results.iloc[0]['px_fit_results'].summary()
 
-        # Save raw data button to save DataFrame as CSV file.
-        st.download_button(label='Press to Download Raw Data',
-                           data=df.to_csv(),
-                           file_name=f'{sector}.csv',
-                           mime='text/csv',
-                           key='download-csv')
+        # Print results.
+        st.write(summary)
+
+        # Get coefficients.
+        b = results.iloc[0]['px_fit_results'].params[0]
+        m = results.iloc[0]['px_fit_results'].params[1]
+
+        # Print subheader.
+        st.subheader(body='Equation')
+
+        # Print equation.
+        st.write('y = ', m, 'x + ', b)
+
+        # Print subheader for prediction.
+        st.subheader(body='Prediction', anchor='prediction')
+
+        # Print explanation.
+        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that ', state, ' ', sector,
+                 ' will consume ', (m * 2022 + b), ' billion Btu of energy in the ', sector, ' for 2022.')
+
+        # Print header for data analysis.
+        st.header(body='Data Analysis')
+
+        # Print analysis.
+        st.write('TODO')
+
+        # Print header for Insights and Recommendations.
+        st.header(body='Insights and Recommendations')
+
+        # Print analysis.
+        st.write('TODO')
 
 
 if __name__ == '__main__':
