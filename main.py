@@ -12,6 +12,10 @@ def main():
     # Add sidebar title.
     st.sidebar.title(body='Options')
 
+    # Sidebar select box to choose visualization.
+    visualization = st.sidebar.selectbox(label='Select visualization:',
+                                         options=('Energy Consumption', 'Energy Usage Price'))
+
     # Sidebar select box to choose sector.
     sector = st.sidebar.selectbox(label='Select a sector:',
                                   options=('Total Consumption', 'Residential Sector', 'Commercial Sector',
@@ -28,70 +32,97 @@ def main():
     # Print team member names.
     st.write('Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu')
 
-    # Set header.
-    st.header(body='Total Energy Consumption Estimates by End-Use Sector')
+    # Table of contents.
+    st.header(body='Table of Contents')
+    st.markdown(body='- [Data Visualization](#data-visualization)\n'
+                     '- [Raw Data](#raw-data)', unsafe_allow_html=True)
 
-    # Write description.
-    st.write('Comprehensive state-level estimates of energy production, consumption, prices, and expenditures by '
-             'source and sector.')
+    # Header for Data Visualization.
+    st.header(body='Data Visualization')
 
-    # Read total energy consumption data.
-    df = pd.read_excel(io=r'use_tot_sector.xlsx',
-                       sheet_name=sector,
-                       header=2)
+    if visualization == 'Energy Consumption':
+        # Set subheader.
+        st.subheader(body='Total Energy Consumption Estimates by End-Use Sector')
 
-    # Drop first row.
-    df.drop(index=df.index[0],
-            axis=0,
-            inplace=True)
+        # Write description.
+        st.write('Comprehensive state-level estimates of energy production, consumption, prices, and expenditures by '
+                 'source and sector.')
 
-    # Drop last row.
-    df.drop(index=df.index[-1],
-            axis=0,
-            inplace=True)
+        # Read total energy consumption data.
+        df = pd.read_excel(io=r'use_tot_sector.xlsx',
+                           sheet_name=sector,
+                           header=2)
 
-    # Create figure.
-    fig = px.choropleth(data_frame=df,
-                        locations='State',
-                        locationmode='USA-states',
-                        color=year,
-                        scope='usa',
-                        title=f'Total Energy Consumption Estimates U.S. {sector} {year}',
-                        labels={f'{year}': 'Billion Btu'})
+        # Drop first row.
+        df.drop(index=df.index[0],
+                axis=0,
+                inplace=True)
 
-    # Print choropleth map figure to page.
-    st.write(fig)
+        # Copy for scatter plot later.
+        scatter_df = df.copy()
 
-    # Drops states except DMV.
-    dmv_df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+        # Drop last row.
+        df.drop(index=df.index[-1],
+                axis=0,
+                inplace=True)
 
-    # Create figure.
-    fig = px.choropleth(data_frame=dmv_df,
-                        locations='State',
-                        locationmode='USA-states',
-                        color=year,
-                        scope='usa',
-                        title=f'Total Energy Consumption Estimates DMV {sector} {year}',
-                        labels={f'{year}': 'Billion Btu'})
+        # Create figure.
+        fig = px.choropleth(data_frame=df,
+                            locations='State',
+                            locationmode='USA-states',
+                            color=year,
+                            scope='usa',
+                            title=f'Total Energy Consumption Estimates U.S. {sector} {year}',
+                            labels={f'{year}': 'Billion Btu'})
 
-    fig.update_geos(fitbounds='locations')
+        # Print choropleth map figure to page.
+        st.write(fig)
 
-    # Print choropleth map figure to page.
-    st.write(fig)
+        # Drops states except DMV.
+        dmv_df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+        scatter_df = scatter_df[scatter_df['State'].isin(['DC', 'MD', 'VA', 'US'])]
 
-    # Set header for raw data.
-    st.header(body='Raw Data')
+        # Create choropleth map figure.
+        fig = px.choropleth(data_frame=dmv_df,
+                            locations='State',
+                            locationmode='USA-states',
+                            color=year,
+                            scope='usa',
+                            title=f'Total Energy Consumption Estimates DMV {sector} {year}',
+                            labels={f'{year}': 'Billion Btu'})
 
-    # Print DataFrame.
-    file_container = st.expander('Display Total Energy Consumption Data .xlsx')
-    file_container.write(df)
+        fig.update_geos(fitbounds='locations')
 
-    # Save raw data button to save DataFrame as CSV file.
-    st.download_button(label='Press to Download Raw Data',
-                       data=df.to_csv(),
-                       file_name=f'{sector}.csv',
-                       mime='text/csv',
-                       key='download-csv')
+        # Print choropleth map figure to page.
+        st.write(fig)
+
+        # Make years a column for plotting.
+        dmv_df = pd.melt(dmv_df, id_vars=['State'], var_name='Year')
+
+        # Create line plot figure.
+        fig = px.line(data_frame=dmv_df,
+                      x='Year',
+                      y='value',
+                      color='State',
+                      title=f'Total Energy Consumption Estimates DMV {sector} 1960-2019',
+                      labels={'value': 'Energy Consumption (Billion Btu)'})
+
+        # Print scatter plot figure to page.
+        st.write(fig)
+
+        # Set header for raw data.
+        st.subheader(body='Raw Data')
+
+        # Print DataFrame.
+        file_container = st.expander(label='Display Total Energy Consumption Data .xlsx')
+        file_container.write(df)
+
+        # Save raw data button to save DataFrame as CSV file.
+        st.download_button(label='Press to Download Raw Data',
+                           data=df.to_csv(),
+                           file_name=f'{sector}.csv',
+                           mime='text/csv',
+                           key='download-csv')
 
 
 if __name__ == '__main__':
