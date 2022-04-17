@@ -9,7 +9,8 @@ def main():
                        page_icon='💡')
 
     # Print title.
-    st.title(body='💡 INST 490 Capstone Project')
+    st.title(body='💡 INST 490 Capstone Project',
+             anchor='title')
 
     # Print team member names.
     st.write('Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu')
@@ -23,7 +24,8 @@ def main():
              'policies states within the region can implement to improve energy efficiency.')
 
     # Choose dataset header.
-    st.header(body='Choose Dataset', anchor='choose-dataset')
+    st.header(body='Choose Dataset',
+              anchor='choose-dataset')
 
     # Select box to choose dataset.
     visualization = st.selectbox(label='Select a dataset:',
@@ -43,9 +45,14 @@ def main():
                     '  - [Line Plot](#line-plot)\n' \
                     '- [Machine Learning](#machine-learning)\n' \
                     '  - [Equation](#equation)\n' \
-                    '  - [Prediction](#prediction)'
+                    '  - [Prediction](#prediction)\n'
 
-    st.markdown(body=contents, unsafe_allow_html=True)
+    # Add rest of the contents.
+    contents += '- [Data Analysis](#data-analysis)\n'\
+                '- [Insights and Recommendations](#insights-and-recommendations)'
+
+    st.markdown(body=contents,
+                unsafe_allow_html=True)
 
     # Header for Data Visualization.
     st.header(body='Data Visualization')
@@ -62,7 +69,7 @@ def main():
         st.subheader('Choropleth Map')
 
         # Subheader for U.S.
-        st.markdown('#### United States')
+        st.markdown(body='#### United States')
 
         # Set 2 columns for the options.
         col1, col2 = st.columns(2)
@@ -119,7 +126,7 @@ def main():
                            key='download-csv1')
 
         # Subheader for DMV.
-        st.markdown('#### DMV')
+        st.markdown(body='#### DMV')
 
         # Set 2 columns for the options.
         col1, col2 = st.columns(2)
@@ -181,7 +188,8 @@ def main():
                            key='download-csv2')
 
         # Subheader for line plot.
-        st.subheader('Line Plot', anchor='line-plot')
+        st.subheader('Line Plot',
+                     anchor='line-plot')
 
         # Set 2 columns for the options.
         col1, col2 = st.columns(2)
@@ -219,7 +227,9 @@ def main():
         dmv_df = df[df['State'].isin(['DC', 'MD', 'VA'])]
 
         # Make years a column for plotting.
-        dmv_df = pd.melt(dmv_df, id_vars=['State'], var_name='Year')
+        dmv_df = pd.melt(frame=dmv_df,
+                         id_vars=['State'],
+                         var_name='Year')
 
         # Filter between year range.
         dmv_df = dmv_df[dmv_df['Year'] >= years[0]]
@@ -249,10 +259,12 @@ def main():
                            key='download-csv3')
 
         # Header for machine learning.
-        st.header(body='Machine Learning', anchor='machine-learning')
+        st.header(body='Machine Learning',
+                  anchor='machine-learning')
 
         # Subheader for linear regression model.
-        st.subheader(body='Scatter Plot with Linear Regression Model', anchor='linear-regression-model')
+        st.subheader(body='Scatter Plot with Linear Regression Model',
+                     anchor='linear-regression-model')
 
         # Set 2 columns for the options.
         col1, col2, col3 = st.columns(3)
@@ -292,7 +304,9 @@ def main():
         scatter_df = scatter_df[scatter_df['State'] == state]
 
         # Make years a column for plotting.
-        scatter_df = pd.melt(scatter_df, id_vars=['State'], var_name='Year')
+        scatter_df = pd.melt(frame=scatter_df,
+                             id_vars=['State'],
+                             var_name='Year')
 
         # Filter between year range.
         scatter_df = scatter_df[scatter_df['Year'] >= years[0]]
@@ -342,7 +356,8 @@ def main():
         st.latex(f'y = {m}x + {b}')
 
         # Print subheader for prediction.
-        st.subheader(body='Prediction', anchor='prediction')
+        st.subheader(body='Prediction',
+                     anchor='prediction')
 
         year = st.number_input(label='Enter a year:',
                                value=2022,
@@ -353,16 +368,22 @@ def main():
                  ' will consume ', (m * year + b), ' billion Btu of energy in the ', sector, ' for ', year, '.')
 
     # Print header for data analysis.
-    st.header(body='Data Analysis')
+    st.header(body='Data Analysis',
+              anchor='data-analysis')
 
     # Print analysis.
     st.write('TODO')
 
     # Print header for Insights and Recommendations.
-    st.header(body='Insights and Recommendations')
+    st.header(body='Insights and Recommendations',
+              anchor='insights-and-recommendations')
 
     # Print analysis.
     st.write('TODO')
+
+    # Return to top link.
+    st.markdown(body='<a href="#title">Link to top</a>',
+                unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
