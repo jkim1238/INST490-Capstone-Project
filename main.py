@@ -44,6 +44,7 @@ def main():
                     '  - [Choropleth Map](#choropleth-map)\n' \
                     '  - [Line Plot](#line-plot)\n' \
                     '- [Machine Learning](#machine-learning)\n' \
+                    '  - [Scatter Plot with Linear Regression Model](#scatter-plot)\n' \
                     '  - [Equation](#equation)\n' \
                     '  - [Prediction](#prediction)\n'
 
@@ -264,7 +265,7 @@ def main():
 
         # Subheader for linear regression model.
         st.subheader(body='Scatter Plot with Linear Regression Model',
-                     anchor='linear-regression-model')
+                     anchor='scatter-plot')
 
         # Set 2 columns for the options.
         col1, col2, col3 = st.columns(3)
