@@ -61,6 +61,9 @@ def main():
         # Subheader for choropleth map.
         st.subheader('Choropleth Map')
 
+        # Subheader for U.S.
+        st.markdown('#### United States')
+
         # Set 2 columns for the options.
         col1, col2 = st.columns(2)
 
@@ -114,6 +117,9 @@ def main():
                            file_name=f'{sector}.csv',
                            mime='text/csv',
                            key='download-csv1')
+
+        # Subheader for DMV.
+        st.markdown('#### DMV')
 
         # Set 2 columns for the options.
         col1, col2 = st.columns(2)
@@ -333,7 +339,7 @@ def main():
 
         # Print equation.
         st.write(state, ' ', sector, ' ', years[0], '-', years[1])
-        st.write('y = ', m, 'x + ', b)
+        st.latex(f'y = {m}x + {b}')
 
         # Print subheader for prediction.
         st.subheader(body='Prediction', anchor='prediction')
