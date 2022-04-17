@@ -6,15 +6,10 @@ import pandas as pd
 def main():
     # Set page config.
     st.set_page_config(page_title='INST 490 Capstone Project',
-                       page_icon='💡',
-                       initial_sidebar_state='expanded')
+                       page_icon='💡')
 
     # Add sidebar title.
     st.sidebar.title(body='Options')
-
-    # Sidebar select box to choose visualization.
-    visualization = st.sidebar.selectbox(label='Select a dataset:',
-                                         options=('Energy Consumption', 'Energy Usage Price'))
 
     # Sidebar select box to choose sector.
     sector = st.sidebar.selectbox(label='Select a sector:',
@@ -32,16 +27,39 @@ def main():
     # Print team member names.
     st.write('Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu')
 
+    # Summary header.
+    st.header(body='Summary')
+
+    # The summary.
+    st.write('Our capstone project is to provide an energy data analysis report that details the current energy '
+             'status of DMV region, in regards to energy consumption and cost, while also providing methods and '
+             'policies states within the region can implement to improve energy efficiency.')
+
+    # Choose dataset header.
+    st.header(body='Choose Dataset', anchor='choose-dataset')
+
+    # Select box to choose dataset.
+    visualization = st.selectbox(label='Select a dataset:',
+                                 options=('Energy Consumption', 'Energy Usage Price'))
+
     # Table of contents.
     st.header(body='Table of Contents')
-    st.markdown(body='- [Data Visualization](#data-visualization)\n'
-                     '  - [Raw Data](#raw-data)\n'
-                     '  - [Choropleth Map](#choropleth-map)\n'
-                     '  - [Line Plot](#line-plot)\n'
-                     '- [Machine Learning](#machine-learning)\n'
-                     '  - [Scatter Plot with Linear Regression Model](#linear-regression-model)\n'
-                     '  - [Equation](#equation)\n'
-                     '  - [Prediction](#prediction)', unsafe_allow_html=True)
+
+    # The contents.
+    contents = '- [Summary](#summary)\n'\
+               '- [Choose Dataset](#choose-dataset)\n'
+
+    # If dataset is energy consumption.
+    if visualization == 'Energy Consumption':
+        contents += '- [Data Visualization](#data-visualization)\n'\
+                    '  - [Raw Data](#raw-data)\n'\
+                    '  - [Choropleth Map](#choropleth-map)\n'\
+                    '  - [Line Plot](#line-plot)\n'\
+                    '- [Machine Learning](#machine-learning)\n'\
+                    '  - [Equation](#equation)\n'\
+                    '  - [Prediction](#prediction)'
+
+    st.markdown(body=contents, unsafe_allow_html=True)
 
     # Header for Data Visualization.
     st.header(body='Data Visualization')

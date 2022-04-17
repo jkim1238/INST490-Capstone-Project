@@ -69,5 +69,5 @@ TODO
     [ftedonje](https://github.com/ftedonje)
   - **Mahad Abdi** - *Findings, Report, Formatting* -
     [Mabdi4](https://github.com/Mabdi4)
-  - **Jiin Kim** - *User Experience (UX), Data Visualization, Cost Analysis, Formatting* -
+  - **Jiin Kim** - *Data Visualization, Cost Analysis, Formatting, User Experience (UX)* -
     [jkim1238](https://github.com/jkim1238)
