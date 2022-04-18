@@ -578,14 +578,14 @@ def main():
                 unsafe_allow_html=True)
 
     # Remove top right menu.
-    # st.markdown(body="""
-    #                  <style>
-    #                  header {visibility: hidden;}
-    #                  #MainMenu {visibility: hidden;}
-    #                  footer {visibility: hidden;}
-    #                  </style>
-    #                  """,
-    #             unsafe_allow_html=True)
+    st.markdown(body="""
+                     <style>
+                     header {visibility: hidden;}
+                     #MainMenu {visibility: hidden;}
+                     footer {visibility: hidden;}
+                     </style>
+                     """,
+                unsafe_allow_html=True)
 
 
 @st.cache
