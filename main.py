@@ -6,7 +6,8 @@ import pandas as pd
 def main():
     # Set page config.
     st.set_page_config(page_title='INST 490 Capstone Project',
-                       page_icon='💡')
+                       page_icon='💡',
+                       initial_sidebar_state='expanded')
 
     # Print title.
     st.title(body='💡 INST 490 Capstone Project',
@@ -32,28 +33,39 @@ def main():
                                  options=('Energy Consumption', 'Energy Usage Price'))
 
     # Table of contents.
-    st.header(body='Table of Contents')
+    st.sidebar.title(body='Table of Contents')
 
     # The contents.
-    contents = '- [Summary](#summary)\n' \
-               '- [Choose Dataset](#choose-dataset)\n'
+    contents = """
+               - [Summary](#summary)\n
+               - [Choose Dataset](#choose-dataset)\n
+               """
 
     # If dataset is energy consumption.
     if visualization == 'Energy Consumption':
-        contents += '- [Data Visualization](#data-visualization)\n' \
-                    '  - [Choropleth Map](#choropleth-map)\n' \
-                    '  - [Line Plot](#line-plot)\n' \
-                    '- [Machine Learning](#machine-learning)\n' \
-                    '  - [Scatter Plot with Linear Regression Model](#scatter-plot)\n' \
-                    '  - [Equation](#equation)\n' \
-                    '  - [Prediction](#prediction)\n'
+        contents += """
+                - [Data Visualization](#data-visualization)\n
+                    - [Choropleth Map](#choropleth-map)\n
+                    - [Line Plot](#line-plot)\n
+                - [Machine Learning](#machine-learning)\n
+                    - [Scatter Plot with Linear Regression Model](#scatter-plot)\n
+                    - [Equation](#equation)\n
+                    - [Prediction](#prediction)\n
+                    """
 
     # Add rest of the contents.
-    contents += '- [Data Analysis](#data-analysis)\n'\
-                '- [Insights and Recommendations](#insights-and-recommendations)'
+    contents += """
+                - [Data Analysis](#data-analysis)\n
+                - [Insights and Recommendations](#insights-and-recommendations)
+                """
 
-    st.markdown(body=contents,
-                unsafe_allow_html=True)
+    # Place table of contents in sidebar.
+    st.sidebar.markdown(body=contents,
+                        unsafe_allow_html=True)
+
+    # Sidebar return to top link.
+    st.sidebar.markdown(body='<a href="#title">Link to top</a>',
+                        unsafe_allow_html=True)
 
     # Header for Data Visualization.
     st.header(body='Data Visualization')
@@ -384,6 +396,13 @@ def main():
 
     # Return to top link.
     st.markdown(body='<a href="#title">Link to top</a>',
+                unsafe_allow_html=True)
+
+    # Remove top right menu.
+    st.markdown(body="""<style>
+                     #MainMenu {visibility: hidden;}
+                     footer {visibility: hidden;}
+                     </style>""",
                 unsafe_allow_html=True)
 
 
