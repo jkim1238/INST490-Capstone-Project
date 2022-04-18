@@ -91,20 +91,8 @@ def main():
                              max_value=2019,
                              key='slider1')
 
-        # Read total energy consumption data.
-        df = pd.read_excel(io=r'use_tot_sector.xlsx',
-                           sheet_name=sector,
-                           header=2)
-
-        # Drop first row.
-        df.drop(index=df.index[0],
-                axis=0,
-                inplace=True)
-
-        # Drop last row.
-        df.drop(index=df.index[-1],
-                axis=0,
-                inplace=True)
+        # Get dataframe.
+        df = get_choro_us_usage_df(sector)
 
         # Create figure.
         fig = px.choropleth(data_frame=df,
@@ -148,23 +136,8 @@ def main():
                              max_value=2019,
                              key='slider2')
 
-        # Read total energy consumption data.
-        df = pd.read_excel(io=r'use_tot_sector.xlsx',
-                           sheet_name=sector,
-                           header=2)
-
-        # Drop first row.
-        df.drop(index=df.index[0],
-                axis=0,
-                inplace=True)
-
-        # Drop last row.
-        df.drop(index=df.index[-1],
-                axis=0,
-                inplace=True)
-
-        # Drops states except DMV.
-        dmv_df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+        # Get dataframe.
+        dmv_df = get_choro_dmv_usage_df(sector)
 
         # Create choropleth map figure.
         fig = px.choropleth(data_frame=dmv_df,
@@ -212,35 +185,11 @@ def main():
                               value=(1960, 2019),
                               key='range1')
 
-        # Read total energy consumption data.
-        df = pd.read_excel(io=r'use_tot_sector.xlsx',
-                           sheet_name=sector,
-                           header=2)
-
-        # Drop first row.
-        df.drop(index=df.index[0],
-                axis=0,
-                inplace=True)
-
-        # Drop last row.
-        df.drop(index=df.index[-1],
-                axis=0,
-                inplace=True)
-
-        # Drops states except DMV.
-        dmv_df = df[df['State'].isin(['DC', 'MD', 'VA'])]
-
-        # Make years a column for plotting.
-        dmv_df = pd.melt(frame=dmv_df,
-                         id_vars=['State'],
-                         var_name='Year')
-
-        # Filter between year range.
-        dmv_df = dmv_df[dmv_df['Year'] >= years[0]]
-        dmv_df = dmv_df[dmv_df['Year'] <= years[1]]
+        # Get dataframe.
+        line_df = get_line_usage_df(sector, years)
 
         # Create line plot figure.
-        fig = px.line(data_frame=dmv_df,
+        fig = px.line(data_frame=line_df,
                       x='Year',
                       y='value',
                       color='State',
@@ -253,11 +202,11 @@ def main():
         # Print DataFrame.
         file_container = st.expander(label=f'Click to display Total Energy Consumption DMV {sector} '
                                            f'{years[0]}-{years[1]} Data')
-        file_container.write(dmv_df)
+        file_container.write(line_df)
 
         # Save raw data button to save DataFrame as CSV file.
         st.download_button(label='Press to Download Raw Data',
-                           data=dmv_df.to_csv(),
+                           data=line_df.to_csv(),
                            file_name=f'{sector}.csv',
                            mime='text/csv',
                            key='download-csv3')
@@ -285,24 +234,8 @@ def main():
                                            'Industrial Sector', 'Transportation Sector'),
                                   key='sector4')
 
-        # Read total energy consumption data.
-        scatter_df = pd.read_excel(io=r'use_tot_sector.xlsx',
-                                   sheet_name=sector,
-                                   header=2)
-
-        # Drop first row.
-        scatter_df.drop(index=df.index[0],
-                        axis=0,
-                        inplace=True)
-
-        # Drop other states.
-        scatter_df = scatter_df[scatter_df['State'].isin(['DC', 'MD', 'VA', 'US'])]
-        scatter_df = scatter_df[scatter_df['State'] == state]
-
-        # Make years a column for plotting.
-        scatter_df = pd.melt(frame=scatter_df,
-                             id_vars=['State'],
-                             var_name='Year')
+        # Get dataframe.
+        scatter_df = get_scatter_usage_df(sector, state)
 
         # Create scatter plot figure.
         fig = px.scatter(data_frame=scatter_df,
@@ -344,7 +277,7 @@ def main():
         st.subheader(body='Equation')
 
         # Print equation.
-        st.write(state, ' ', sector, ' ', years[0], '-', years[1])
+        st.write('Total Energy Consumption Estimates ', state, ' ', sector, ' 1960-2019')
         st.latex(f'y = {m}x + {b}')
 
         # Print subheader for prediction.
@@ -356,8 +289,9 @@ def main():
                                format='%d')
 
         # Print explanation.
-        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that ', state, ' ', sector,
-                 ' will consume ', (m * year + b), ' billion Btu of energy in the ', sector, ' for ', year, '.')
+        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Total Energy '
+                 'Consumption Estimates ', state, ' ', sector, ' will consume ', (m * year + b),
+                 ' billion Btu of energy in ', year, '.')
     elif visualization == 'Energy Usage Price':
         # Set subheader.
         st.subheader(body='Average Price by State by Provider, 1990-2020')
@@ -396,15 +330,8 @@ def main():
                              max_value=2020,
                              key='slider1')
 
-        # Read average price data.
-        df = pd.read_excel(io=r'avgprice_annual.xlsx',
-                           sheet_name='Price',
-                           header=1)
-
-        # Filter sector, provider, and year.
-        df = df[df['Year'] == year]
-        df = df[df['Industry Sector Category'] == provider]
-        df = df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
+        # Get dataframe.
+        df = get_choro_us_price_df(sector, provider, year)
 
         # Create figure.
         fig = px.choropleth(data_frame=df,
@@ -459,18 +386,8 @@ def main():
                              max_value=2020,
                              key='slider2')
 
-        # Read average price data.
-        dmv_df = pd.read_excel(io=r'avgprice_annual.xlsx',
-                               sheet_name='Price',
-                               header=1)
-
-        # Filter sector, provider, and year.
-        dmv_df = dmv_df[dmv_df['Year'] == year]
-        dmv_df = dmv_df[dmv_df['Industry Sector Category'] == provider]
-        dmv_df = dmv_df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
-
-        # Drops states except DMV.
-        dmv_df = dmv_df[dmv_df['State'].isin(['DC', 'MD', 'VA'])]
+        # Get dataframe.
+        dmv_df = get_choro_dmv_price_df(sector, provider, year)
 
         # Create choropleth map figure.
         fig = px.choropleth(data_frame=dmv_df,
@@ -494,7 +411,7 @@ def main():
 
         # Save raw data button to save DataFrame as CSV file.
         st.download_button(label='Press to Download Raw Data',
-                           data=df.to_csv(),
+                           data=dmv_df.to_csv(),
                            file_name=f'{sector}.csv',
                            mime='text/csv',
                            key='download-csv2')
@@ -528,21 +445,8 @@ def main():
                               value=(1990, 2020),
                               key='range1')
 
-        # Read average price data.
-        dmv_df = pd.read_excel(io=r'avgprice_annual.xlsx',
-                               sheet_name='Price',
-                               header=1)
-
-        # Filter sector and provider.
-        dmv_df = dmv_df[dmv_df['Industry Sector Category'] == provider]
-        dmv_df = dmv_df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
-
-        # Drops states except DMV.
-        dmv_df = dmv_df[dmv_df['State'].isin(['DC', 'MD', 'VA'])]
-
-        # Filter between year range.
-        dmv_df = dmv_df[dmv_df['Year'] >= years[0]]
-        dmv_df = dmv_df[dmv_df['Year'] <= years[1]]
+        # Get dataframe.
+        dmv_df = get_line_price_df(sector, provider, years)
 
         # Create line plot figure.
         fig = px.line(data_frame=dmv_df,
@@ -598,18 +502,8 @@ def main():
                                              'Delivery-Only Providers'),
                                     key='provider4')
 
-        # Read average price data.
-        scatter_df = pd.read_excel(io=r'avgprice_annual.xlsx',
-                                   sheet_name='Price',
-                                   header=1)
-
-        # Filter sector and provider.
-        scatter_df = scatter_df[scatter_df['Industry Sector Category'] == provider]
-        scatter_df = scatter_df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
-
-        # Drops states except DMV.
-        scatter_df = scatter_df[scatter_df['State'].isin(['DC', 'MD', 'VA', 'US'])]
-        scatter_df = scatter_df[scatter_df['State'] == state]
+        # Get dataframe.
+        scatter_df = get_scatter_price_df(sector, provider, state)
 
         # Create scatter plot figure.
         fig = px.scatter(data_frame=scatter_df,
@@ -651,7 +545,7 @@ def main():
         st.subheader(body='Equation')
 
         # Print equation.
-        st.write(state, ' ', sector, ' ', years[0], '-', years[1])
+        st.write('Average Price ', state, ' ', sector, ' Sector ', provider, ' 1990-2020')
         st.latex(f'y = {m}x + {b}')
 
         # Print subheader for prediction.
@@ -663,8 +557,7 @@ def main():
                                format='%d')
 
         # Print explanation.
-        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that ', state, ' ', provider,
-                 ' will cost ', (m * year + b), ' Cents/kWh in the ', sector, ' Sector for ', year, '.')
+        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Average Price ', state, ' ', sector, ' Sector ', provider, ' will cost ', (m * year + b), ' Cents/kWh in ', year, '.')
 
     # Print header for data analysis.
     st.header(body='Data Analysis',
@@ -685,14 +578,185 @@ def main():
                 unsafe_allow_html=True)
 
     # Remove top right menu.
-    st.markdown(body="""
-                     <style>
-                     header {visibility: hidden;}
-                     #MainMenu {visibility: hidden;}
-                     footer {visibility: hidden;}
-                     </style>
-                     """,
-                unsafe_allow_html=True)
+    # st.markdown(body="""
+    #                  <style>
+    #                  header {visibility: hidden;}
+    #                  #MainMenu {visibility: hidden;}
+    #                  footer {visibility: hidden;}
+    #                  </style>
+    #                  """,
+    #             unsafe_allow_html=True)
+
+
+@st.cache
+def get_choro_us_usage_df(sector):
+    # Read total energy consumption data.
+    df = pd.read_excel(io=r'use_tot_sector.xlsx',
+                       sheet_name=sector,
+                       header=2)
+
+    # Drop first row.
+    df.drop(index=df.index[0],
+            axis=0,
+            inplace=True)
+
+    # Drop last row.
+    df.drop(index=df.index[-1],
+            axis=0,
+            inplace=True)
+
+    return df
+
+
+@st.cache
+def get_choro_dmv_usage_df(sector):
+    # Read total energy consumption data.
+    df = pd.read_excel(io=r'use_tot_sector.xlsx',
+                       sheet_name=sector,
+                       header=2)
+
+    # Drop first row.
+    df.drop(index=df.index[0],
+            axis=0,
+            inplace=True)
+
+    # Drop last row.
+    df.drop(index=df.index[-1],
+            axis=0,
+            inplace=True)
+
+    # Drops states except DMV.
+    df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+
+    return df
+
+
+@st.cache
+def get_line_usage_df(sector, years):
+    # Read total energy consumption data.
+    df = pd.read_excel(io=r'use_tot_sector.xlsx',
+                       sheet_name=sector,
+                       header=2)
+
+    # Drop first row.
+    df.drop(index=df.index[0],
+            axis=0,
+            inplace=True)
+
+    # Drop last row.
+    df.drop(index=df.index[-1],
+            axis=0,
+            inplace=True)
+
+    # Drops states except DMV.
+    df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+
+    # Make years a column for plotting.
+    df = pd.melt(frame=df,
+                 id_vars=['State'],
+                 var_name='Year')
+
+    # Filter between year range.
+    df = df[df['Year'] >= years[0]]
+    df = df[df['Year'] <= years[1]]
+
+    return df
+
+
+@st.cache
+def get_scatter_usage_df(sector, state):
+    # Read total energy consumption data.
+    df = pd.read_excel(io=r'use_tot_sector.xlsx',
+                       sheet_name=sector,
+                       header=2)
+
+    # Drop first row.
+    df.drop(index=df.index[0],
+            axis=0,
+            inplace=True)
+
+    # Drop other states.
+    df = df[df['State'].isin(['DC', 'MD', 'VA', 'US'])]
+    df = df[df['State'] == state]
+
+    # Make years a column for plotting.
+    df = pd.melt(frame=df,
+                 id_vars=['State'],
+                 var_name='Year')
+
+    return df
+
+
+@st.cache
+def get_choro_us_price_df(sector, provider, year):
+    # Read average price data.
+    df = pd.read_excel(io=r'avgprice_annual.xlsx',
+                       sheet_name='Price',
+                       header=1)
+
+    # Filter sector, provider, and year.
+    df = df[df['Year'] == year]
+    df = df[df['Industry Sector Category'] == provider]
+    df = df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
+
+    return df
+
+
+@st.cache
+def get_choro_dmv_price_df(sector, provider, year):
+    # Read average price data.
+    df = pd.read_excel(io=r'avgprice_annual.xlsx',
+                       sheet_name='Price',
+                       header=1)
+
+    # Filter sector, provider, and year.
+    df = df[df['Year'] == year]
+    df = df[df['Industry Sector Category'] == provider]
+    df = df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
+
+    # Drops states except DMV.
+    df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+
+    return df
+
+
+@st.cache
+def get_line_price_df(sector, provider, years):
+    # Read average price data.
+    df = pd.read_excel(io=r'avgprice_annual.xlsx',
+                       sheet_name='Price',
+                       header=1)
+
+    # Filter sector and provider.
+    df = df[df['Industry Sector Category'] == provider]
+    df = df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
+
+    # Drops states except DMV.
+    df = df[df['State'].isin(['DC', 'MD', 'VA'])]
+
+    # Filter between year range.
+    df = df[df['Year'] >= years[0]]
+    df = df[df['Year'] <= years[1]]
+
+    return df
+
+
+@st.cache
+def get_scatter_price_df(sector, provider, state):
+    # Read average price data.
+    df = pd.read_excel(io=r'avgprice_annual.xlsx',
+                       sheet_name='Price',
+                       header=1)
+
+    # Filter sector and provider.
+    df = df[df['Industry Sector Category'] == provider]
+    df = df[['Year', 'State', 'Industry Sector Category', f'{sector}']]
+
+    # Drops states except DMV.
+    df = df[df['State'].isin(['DC', 'MD', 'VA', 'US'])]
+    df = df[df['State'] == state]
+
+    return df
 
 
 if __name__ == '__main__':
