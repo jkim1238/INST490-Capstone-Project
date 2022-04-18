@@ -280,7 +280,7 @@ def main():
                      anchor='scatter-plot')
 
         # Set 2 columns for the options.
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
 
         with col1:
             # Select box to choose state.
@@ -293,14 +293,6 @@ def main():
                                   options=('Total Consumption', 'Residential Sector', 'Commercial Sector',
                                            'Industrial Sector', 'Transportation Sector'),
                                   key='sector4')
-
-        with col3:
-            # Slider for year range.
-            years = st.slider(label='Select a year range:',
-                              min_value=1960,
-                              max_value=2019,
-                              value=(1960, 2019),
-                              key='range2')
 
         # Read total energy consumption data.
         scatter_df = pd.read_excel(io=r'use_tot_sector.xlsx',
@@ -321,16 +313,12 @@ def main():
                              id_vars=['State'],
                              var_name='Year')
 
-        # Filter between year range.
-        scatter_df = scatter_df[scatter_df['Year'] >= years[0]]
-        scatter_df = scatter_df[scatter_df['Year'] <= years[1]]
-
         # Create scatter plot figure.
         fig = px.scatter(data_frame=scatter_df,
                          x='Year',
                          y='value',
                          color='State',
-                         title=f'Total Energy Consumption Estimates {state} {sector} {years[0]}-{years[1]}',
+                         title=f'Total Energy Consumption Estimates {state} {sector} 1960-2019',
                          labels={'value': 'Energy Consumption (Billion Btu)'},
                          trendline='ols',
                          trendline_color_override='red')
@@ -347,7 +335,7 @@ def main():
 
         # Print DataFrame.
         file_container = st.expander(label=f'Click to display Total Energy Consumption {state} {sector} '
-                                           f'{years[0]}-{years[1]} Data')
+                                           f'1960-2019 Data')
         file_container.write(scatter_df)
 
         # Save raw data button to save DataFrame as CSV file.
@@ -399,11 +387,14 @@ def main():
                 unsafe_allow_html=True)
 
     # Remove top right menu.
-    st.markdown(body="""<style>
-                     #MainMenu {visibility: hidden;}
-                     footer {visibility: hidden;}
-                     </style>""",
-                unsafe_allow_html=True)
+    # st.markdown(body="""
+    #                  <style>
+    #                  header {visibility: hidden;}
+    #                  #MainMenu {visibility: hidden;}
+    #                  footer {visibility: hidden;}
+    #                  </style>
+    #                  """,
+    #             unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
