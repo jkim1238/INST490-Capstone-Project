@@ -575,9 +575,6 @@ def main():
         st.subheader(body='Scatter Plot with Linear Regression Model',
                      anchor='scatter-plot')
 
-        # Set 2 columns for the options.
-        col1, col2 = st.columns(2)
-
         # Set 3 columns for the options.
         col1, col2, col3 = st.columns(3)
 
@@ -635,7 +632,8 @@ def main():
         file_container.write(results.px_fit_results.iloc[0].summary())
 
         # Print DataFrame.
-        file_container = st.expander(label=f'Click to display Average Price {state} {sector} Sector {provider} 1990-2020 Data')
+        file_container = st.expander(label=f'Click to display Average Price {state} {sector} Sector {provider} 1990'
+                                           f'-2020 Data')
         file_container.write(scatter_df)
 
         # Save raw data button to save DataFrame as CSV file.
