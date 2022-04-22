@@ -10,7 +10,7 @@ def main():
                        initial_sidebar_state='expanded')
 
     # Print title.
-    st.title(body='💡 INST 490 Capstone Project',
+    st.title(body='💡 DMV Energy Efficiency Analysis',
              anchor='title')
 
     # Print team member names.
@@ -20,9 +20,11 @@ def main():
     st.header(body='Summary')
 
     # The summary.
-    st.write('Our capstone project is to provide an energy data analysis report that details the current energy '
-             'status of DMV region, in regards to energy consumption and cost, while also providing methods and '
-             'policies states within the region can implement to improve energy efficiency.')
+    st.write("""
+             The DMV Energy Efficiency Analysis details the current energy status of the DMV region, in regards to 
+             energy consumption and cost, while also providing programs and policies states within the region can implement to 
+             improve energy efficiency.
+             """)
 
     # Choose dataset header.
     st.header(body='Choose Dataset',
