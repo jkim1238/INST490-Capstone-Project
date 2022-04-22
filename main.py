@@ -290,7 +290,7 @@ def main():
 
         # Print explanation.
         st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Total Energy '
-                 'Consumption Estimates ', state, ' ', sector, ' will consume ', (m * year + b),
+                 'Consumption Estimates ', state, ' ', sector, ' will consume ', calculate_prediction(m, year, b),
                  ' billion Btu of energy in ', year, '.')
     elif visualization == 'Energy Usage Price':
         # Set subheader.
@@ -557,7 +557,9 @@ def main():
                                format='%d')
 
         # Print explanation.
-        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Average Price ', state, ' ', sector, ' Sector ', provider, ' will cost ', (m * year + b), ' Cents/kWh in ', year, '.')
+        st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Average Price ',
+                 state, ' ', sector, ' Sector ', provider, ' will cost ', calculate_prediction(m, year, b),
+                 ' Cents/kWh in ', year, '.')
 
     # Print header for data analysis.
     st.header(body='Data Analysis',
@@ -757,6 +759,11 @@ def get_scatter_price_df(sector, provider, state):
     df = df[df['State'] == state]
 
     return df
+
+
+@st.cache
+def calculate_prediction(m, year, b):
+    return m * year + b
 
 
 if __name__ == '__main__':
