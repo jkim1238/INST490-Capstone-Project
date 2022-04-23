@@ -1,11 +1,22 @@
+from io import StringIO
+
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import tableauserverclient as TSC
+
+# Set up Tableau connection.
+tableau_auth = TSC.PersonalAccessTokenAuth(
+    st.secrets['tableau']['token_name'],
+    st.secrets['tableau']['token_secret'],
+    st.secrets['tableau']['site_id']
+)
+server = TSC.Server(st.secrets["tableau"]["server_url"], use_server_version=True)
 
 
 def main():
     # Set page config.
-    st.set_page_config(page_title='INST 490 Capstone Project',
+    st.set_page_config(page_title='DMV Energy Efficiency Analysis',
                        page_icon='💡',
                        initial_sidebar_state='expanded')
 
@@ -32,7 +43,7 @@ def main():
 
     # Select box to choose dataset.
     visualization = st.selectbox(label='Select a dataset:',
-                                 options=('Energy Consumption', 'Energy Usage Price', 'Tableau'))
+                                 options=('Energy Consumption', 'Energy Usage Price', 'Tableau Online'))
 
     # Table of contents.
     st.sidebar.title(body='Table of Contents')
@@ -72,7 +83,7 @@ def main():
                  'source and sector.')
 
         # Subheader for choropleth map.
-        st.subheader('Choropleth Map')
+        st.subheader(body='Choropleth Map')
 
         # Subheader for U.S.
         st.markdown(body='#### United States')
@@ -167,7 +178,7 @@ def main():
                            key='download-csv2')
 
         # Subheader for line plot.
-        st.subheader('Line Plot',
+        st.subheader(body='Line Plot',
                      anchor='line-plot')
 
         # Set 2 columns for the options.
@@ -216,6 +227,10 @@ def main():
         # Header for machine learning.
         st.header(body='Machine Learning',
                   anchor='machine-learning')
+
+        # Description for machine learning.
+        st.write('Because we don\'t have data for recent years, we can use machine learning to predict values for any '
+                 'year.')
 
         # Subheader for linear regression model.
         st.subheader(body='Scatter Plot with Linear Regression Model',
@@ -302,7 +317,7 @@ def main():
         st.write('Revenue, sales, customer counts, and retail price by state and sector.')
 
         # Subheader for choropleth map.
-        st.subheader('Choropleth Map')
+        st.subheader(body='Choropleth Map')
 
         # Subheader for U.S.
         st.markdown(body='#### United States')
@@ -477,6 +492,10 @@ def main():
         st.header(body='Machine Learning',
                   anchor='machine-learning')
 
+        # Description for machine learning.
+        st.write('Because we don\'t have data for recent years, we can use machine learning to predict values for any '
+                 'year.')
+
         # Subheader for linear regression model.
         st.subheader(body='Scatter Plot with Linear Regression Model',
                      anchor='scatter-plot')
@@ -562,6 +581,32 @@ def main():
         st.write('Using Ordinary Least Squares (OLS) linear regression model, we predict that the Average Price ',
                  state, ' ', sector, ' Sector ', provider, ' will cost ', calculate_prediction(m, year, b),
                  ' Cents/kWh in ', year, '.')
+    elif visualization == 'Tableau Online':
+        # Subheader for Tableau Online.
+        st.subheader(body='Tableau Online')
+
+        # Tableau description.
+        st.write('We can connect to Tableau Online and use their')
+
+        workbooks_names, views_names, view_name, view_image, view_csv = run_query()
+
+        # Print results.
+        st.subheader("📓 Workbooks")
+        st.write("Found the following workbooks:", ", ".join(workbooks_names))
+
+        st.subheader("👁️ Views")
+        st.write(
+            f"Workbook *{workbooks_names[0]}* has the following views:",
+            ", ".join(views_names),
+        )
+
+        st.subheader("🖼️ Image")
+        st.write(f"Here's what view *{view_name}* looks like:")
+        st.image(view_image, width=300)
+
+        st.subheader("📊 Data")
+        st.write(f"And here's the data for view *{view_name}*:")
+        st.write(pd.read_csv(StringIO(view_csv)))
 
     # Print header for data analysis.
     st.header(body='Data Analysis',
@@ -581,15 +626,15 @@ def main():
     st.markdown(body='<a href="#title">Link to top</a>',
                 unsafe_allow_html=True)
 
-    # Remove top right menu.
-    st.markdown(body="""
-                     <style>
-                     header {visibility: hidden;}
-                     #MainMenu {visibility: hidden;}
-                     footer {visibility: hidden;}
-                     </style>
-                     """,
-                unsafe_allow_html=True)
+    # # Remove top right menu.
+    # st.markdown(body="""
+    #                  <style>
+    #                  header {visibility: hidden;}
+    #                  #MainMenu {visibility: hidden;}
+    #                  footer {visibility: hidden;}
+    #                  </style>
+    #                  """,
+    #             unsafe_allow_html=True)
 
 
 @st.cache
@@ -766,6 +811,32 @@ def get_scatter_price_df(sector, provider, state):
 @st.cache
 def calculate_prediction(m, year, b):
     return m * year + b
+
+
+# Get various data.
+# Explore the tableauserverclient library for more options.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query():
+    with server.auth.sign_in(tableau_auth):
+        # Get all workbooks.
+        workbooks, pagination_item = server.workbooks.get()
+        workbooks_names = [w.name for w in workbooks]
+
+        # Get views for first workbook.
+        server.workbooks.populate_views(workbooks[0])
+        views_names = [v.name for v in workbooks[0].views]
+
+        # Get image & CSV for first view of first workbook.
+        view_item = workbooks[0].views[0]
+        server.views.populate_image(view_item)
+        server.views.populate_csv(view_item)
+        view_name = view_item.name
+        view_image = view_item.image
+        # `view_item.csv` is a list of binary objects, convert to str.
+        view_csv = b"".join(view_item.csv).decode("utf-8")
+
+        return workbooks_names, views_names, view_name, view_image, view_csv
 
 
 if __name__ == '__main__':
