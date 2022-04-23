@@ -60,7 +60,7 @@ def main():
                    - [Equation](#equation)\n
                    - [Prediction](#prediction)\n
                - [Data Analysis](#data-analysis)\n
-               - [Insights and Recommendations](#insights-and-recommendations)
+               - [Insights and Recommendations](#recommendations)
                """
 
     # Place table of contents in sidebar.
@@ -616,8 +616,8 @@ def main():
     st.write('TODO')
 
     # Print header for Insights and Recommendations.
-    st.header(body='Insights and Recommendations',
-              anchor='insights-and-recommendations')
+    st.header(body='Recommendations',
+              anchor='recommendations')
 
     # Print analysis.
     st.write('TODO')
