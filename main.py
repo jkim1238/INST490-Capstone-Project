@@ -615,14 +615,12 @@ def main():
     # Print analysis.
     st.write('TODO')
 
-    # Print header for Recommendations.
+    # Print header/subheader for Recommendations.
     st.header(body='Recommendations',
               anchor='recommendations')
-
-    # Print analysis.
-    st.subheader('DMV Energy Efficiency Analysis Recommendations')
+    # Print markdown
+    st.markdown('###### State-Level Energy Efficiency Programs')
     st.write("""
-    State-Level Energy Efficiency Programs
     -	MD
     	- PEPCO - Commercial and Industrial Energy Efficiency Rebate Program
     	- PEPCO - Residential Energy Efficiency Rebate Program
@@ -631,15 +629,18 @@ def main():
         - FirstEnergy (Potomac Edison) - Residential Energy Efficiency Rebate Program
     -	VA
         - Washington Gas - Commercial Energy Efficiency Rebate Program
-        - Washington Gas - Residential Energy Efficiency Rebate Program
-    
-    State-Level Energy Efficiency Policies
+        - Washington Gas - Residential Energy Efficiency Rebate Program 
+    """)
+
+    # Print markdown
+    st.markdown('###### State-Level Energy Efficiency Policies')
+
+    st.write("""
     -	Encourage retro-commissioning when it comes to developing and building public and private buildings.
     -	Implement state-wide energy performance building codes for the numerous commercial and residential buildings constructed or in the process of construction.
     -	Provide educational classes and materials that help state citizens adjust their lifestyle to be more energy conscious and follow energy-efficient methods.
     -	Implement energy efficiency standards and codes for household appliances, like washing machines and refrigerators, to encourage more energy-efficient appliances.
     -	Monitor the state's ongoing energy consumption and cost analysis to curate energy efficiency programs and policies for the state's current energy status.
-
     """)
 
     # Return to top link.
