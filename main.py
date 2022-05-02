@@ -631,14 +631,13 @@ def main():
     - The minimum amount of energy that Virginia consumed was 449,575 billion BTU.
     - The minimum amount of energy that Virginia consumed was 683,534 billion BTU.
     - The average price of energy use in Virginia cost $7,341,56
-    
-    ##### Insights & Findings
+    """)
+    st.markdown('###### Insights & Findings ')
+    st.write(""" 
     Based on the data analysis, we can make the inference that the DMV region has experienced 
     an increase in energy consumption and energy usage price. This means that, with the current 
     status of energy inefficiency across the states within the DMV region, there is a need for 
     the implementation of energy efficiency policies and programs to help improve energy efficiency in the DMV.
-
-
     """)
 
     # Print header/subheader for Recommendations.
