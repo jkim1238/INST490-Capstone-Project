@@ -613,7 +613,26 @@ def main():
               anchor='data-analysis')
 
     # Print analysis.
-    st.write('TODO')
+    st.write(""" 
+    ###### MD
+    - The minimum amount of energy that Maryland consumed was 142,516 billion BTU.
+    - The average amount of energy that Maryland consumed was 325,176 billion BTU.
+    - The maximum amount of energy that Maryland consumed was 454,757 billion BTU.
+    - The average price of energy use in Maryland cost $3,625,714.
+    
+    ###### DC
+    - The minimum amount of energy that DC consumed was 24,123 billion BTU.
+    - The minimum amount of energy that DC consumed was 34,855 billion BTU.
+    - The minimum amount of energy that DC consumed was 42,435 billion BTU.
+    - The average price of energy use in DC cost $414,776.
+
+    ###### VA
+    - The minimum amount of energy that Virginia consumed was 192,104 billion BTU.
+    - The minimum amount of energy that Virginia consumed was 449,575 billion BTU.
+    - The minimum amount of energy that Virginia consumed was 683,534 billion BTU.
+    - The average price of energy use in Virginia cost $7,341,56
+
+    """)
 
     # Print header/subheader for Recommendations.
     st.header(body='Recommendations',
