@@ -593,7 +593,7 @@ def main():
     - The minimum amount of energy that Virginia consumed was 192,104 billion BTU.
     - The minimum amount of energy that Virginia consumed was 449,575 billion BTU.
     - The minimum amount of energy that Virginia consumed was 683,534 billion BTU.
-    - The average price of energy use in Virginia cost $7,341,56
+    - The average price of energy use in Virginia cost $7,341,562.
     """)
 
     # Print header.
