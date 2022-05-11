@@ -13,7 +13,6 @@ Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice T
   - [Installation](#installation)
   - [Usage](#usage)
   - [Running The Tests](#running-the-tests)
-  - [Bibliography](#bibliography)
   - [Authors](#authors)
 
 ## Scope
