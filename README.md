@@ -22,7 +22,7 @@ TODO
 
 ## Project Breakdown and Division of Labor
 
-TODO
+![Roles](https://github.com/jkim1238/INST490-Capstone-Project/blob/0b04d55edb5ad746a298c1485831b608cac11f41/images/roles.png?raw=true)
 
 ## Meetings and Communication
 
