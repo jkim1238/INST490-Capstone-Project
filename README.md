@@ -52,8 +52,6 @@ efficiency.
 
 ## Installation
 
-TODO
-
 ```
 pip install streamlit
 ```
@@ -63,15 +61,6 @@ pip install streamlit
 ```
 streamlit run main.py
 ```
-
-## Running the Tests
-
-TODO
-
-## Bibliography
-
-  - use_tot_sector.xlsx
-  - TODO
 
 ## Authors
 
