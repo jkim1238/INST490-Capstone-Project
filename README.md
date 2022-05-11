@@ -60,6 +60,8 @@ efficiency.
 
 ```
 pip install streamlit
+pip install plotly
+pip install pandas
 ```
 
 ## Usage
