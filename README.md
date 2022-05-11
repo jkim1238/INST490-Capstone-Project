@@ -12,7 +12,6 @@ Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice T
   - [Schedule and Milestones](#schedule-and-milestones)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Running The Tests](#running-the-tests)
   - [Authors](#authors)
 
 ## Scope
