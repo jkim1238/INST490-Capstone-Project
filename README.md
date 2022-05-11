@@ -25,7 +25,9 @@ efficiency.
 
 ## Project Breakdown and Division of Labor
 
-![Roles](https://github.com/jkim1238/INST490-Capstone-Project/blob/0b04d55edb5ad746a298c1485831b608cac11f41/images/roles.png?raw=true)
+<p align="center">
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/0b04d55edb5ad746a298c1485831b608cac11f41/images/roles.png" />
+</p>
 
 ## Meetings and Communication
 
@@ -50,7 +52,9 @@ efficiency.
 
 ## Schedule and Milestones
 
-![Workflow](https://github.com/jkim1238/INST490-Capstone-Project/blob/7a4488b2f3e34915a61736e35c47566b862e7b89/images/Workflow.png?raw=true)
+<p align="center">
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/7a4488b2f3e34915a61736e35c47566b862e7b89/images/Workflow.png" />
+</p>
 
 ## Installation
 
