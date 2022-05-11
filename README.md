@@ -1,4 +1,4 @@
-# INST490-Capstone-Project [![](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+# INST490-Capstone-Project [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/yourGitHubName/yourRepo/yourApp/) [![](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu
 
