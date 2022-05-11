@@ -45,10 +45,8 @@ TODO
 
 ## Schedule and Milestones
 
-  - TODO
-  - TODO
-  - TODO
-  
+![Workflow](https://github.com/jkim1238/INST490-Capstone-Project/blob/7a4488b2f3e34915a61736e35c47566b862e7b89/images/Workflow.png?raw=true)
+
 ## Installation
 
 TODO
