@@ -53,7 +53,7 @@ efficiency.
 ## Schedule and Milestones
 
 <p align="center">
-  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/25f6c8351bacbab993d42bb938a482884dff652a/images/team_manifesto.png" />
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/9726c5aa567c4169b10595d890c3a9b122098a05/images/team_manifesto.png" />
 </p>
 
 ## Installation
