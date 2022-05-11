@@ -26,6 +26,9 @@ TODO
 
 ## Meetings and Communication
 
+![Team Manifesto](https://github.com/jkim1238/INST490-Capstone-Project/blob/a854218028b9275ce89ca0a050aab5d0a3a329a5/images/team_manifesto.png?raw=true)
+
+
 TODO
 
 ## Schedule and Milestones
