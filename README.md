@@ -56,14 +56,6 @@ efficiency.
   <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/efd96166dfecf5b0c50c8cc888923ce60bbaa068/images/Workflow.png" />
 </p>
 
-<p align="center">
-<svg xmlns="http://www.w3.org/2000/svg">       
-        <image 
-            href=
-"https://github.com/jkim1238/INST490-Capstone-Project/blob/efd96166dfecf5b0c50c8cc888923ce60bbaa068/images/Workflow.png"/>
-    </svg>
-  </p>
-
 ## Installation
 
 ```
