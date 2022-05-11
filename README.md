@@ -2,7 +2,9 @@
 
 Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu
 
-![Average Energy Price](https://github.com/jkim1238/INST490-Capstone-Project/blob/5230bdb31fa1e947fb950e2955cfa4fe818abd94/images/DMV_energy_price.PNG?raw=true)
+<p align="center">
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/5230bdb31fa1e947fb950e2955cfa4fe818abd94/images/DMV_energy_price.PNG" />
+</p>
   
 ## Summary
 
@@ -27,7 +29,9 @@ efficiency.
 
 ## Meetings and Communication
 
-![Team Manifesto](https://github.com/jkim1238/INST490-Capstone-Project/blob/ecb1b1e801cae897e504c74affd0e90a0cbdd7a1/images/team_manifesto.png?raw=true)
+<p align="center">
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/ecb1b1e801cae897e504c74affd0e90a0cbdd7a1/images/team_manifesto.png" />
+</p>
 
 | Communication                                                                                                 | Frequency                     | Goal                                                                                                            | Owner        | Audience                          | Method               | Format / Tool              | Artifact                     | Examples / Templates |
 |---------------------------------------------------------------------------------------------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|--------------|-----------------------------------|----------------------|----------------------------|------------------------------|------------------------|
