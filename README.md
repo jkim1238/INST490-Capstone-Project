@@ -28,8 +28,14 @@ TODO
 
 ![Team Manifesto](https://github.com/jkim1238/INST490-Capstone-Project/blob/ecb1b1e801cae897e504c74affd0e90a0cbdd7a1/images/team_manifesto.png?raw=true)
 
-
-TODO
+| Communication                | Frequency                     | Goal                                                                                                            | Owner        | Audience                          | Method               | Format / Tool       | Artifact | Example s / Template s |
+|------------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|--------------|-----------------------------------|----------------------|---------------------|----------|------------------------|
+| Project Kick-off             | Once                          | Introduce the team and client.                                                                                  | Project Lead | Project Team Client TA Instructor | Meeting              | Discord Google Docs | TBD      |                        |
+| To-Do List                   | Daily                         | Discuss status of individual tasks                                                                              | Project Team | Project Team                      | Meeting              | Discord Google Docs | TBD      |                        |
+| Team Standup                 | Daily (2/week for Capstone)   | Examine past projects assignments that have been completed and future assignments that need to be accomplished. | Project Team | Project Team                      | Meeting              | Discord Google Docs | TBD      |                        |
+| Task Progress Updates        | 2/week (2 days after Standup) | Update and share progress on the project's tasks.                                                               | Project Lead | Project Team TA Instructor        | Messages             | Discord             | TBD      |                        |
+| Project Status Report        | Weekly                        | Talk about current project submissions and take notice of potential delays.                                     | Project Lead | Project Team Client TA            | Messages             | Discord Google Docs | TBD      |                        |
+| Sprints Time is not elastic. | 2 weeks                       | Work to complete each of our tasks, milestones, and deliverables.                                               | Project Lead | Project Team Client               | Virtual Sticky Notes | Miro Board          | TBD      |                        |
 
 ## Schedule and Milestones
 
