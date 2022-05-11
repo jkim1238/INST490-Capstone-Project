@@ -32,7 +32,7 @@ efficiency.
 ## Meetings and Communication
 
 <p align="center">
-  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/fd8ce493f8ccdce87dd4b9bf2479374bd436d1f7/images/team_manifesto.pngg" />
+  <img src="https://github.com/jkim1238/INST490-Capstone-Project/blob/fd8ce493f8ccdce87dd4b9bf2479374bd436d1f7/images/team_manifesto.png" />
 </p>
 
 | Communication                                                                                                 | Frequency                     | Goal                                                                                                            | Owner        | Audience                          | Method               | Format / Tool              | Artifact                     | Examples / Templates |
