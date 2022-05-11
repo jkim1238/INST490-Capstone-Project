@@ -2,9 +2,7 @@
 
 Mohamed Nabeel, Grant Buttrey, Jiin Kim, Mahad Abdi, Matthew Makonnen, Fabrice Tedonjeu
 
-<p align="center">
-  ![Average Energy Price](https://github.com/jkim1238/INST490-Capstone-Project/blob/5230bdb31fa1e947fb950e2955cfa4fe818abd94/images/DMV_energy_price.PNG?raw=true)
-</p>
+![Average Energy Price](https://github.com/jkim1238/INST490-Capstone-Project/blob/5230bdb31fa1e947fb950e2955cfa4fe818abd94/images/DMV_energy_price.PNG?raw=true)
   
 ## Summary
 
